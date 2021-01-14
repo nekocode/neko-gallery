@@ -72,4 +72,9 @@ export default {
     !production && serve(),
     !production && livereload("dist"),
   ],
+  watch: {
+    // https://github.com/rollup/rollup/issues/1666#issuecomment-536227450
+    usePolling: true,
+    clearScreen: false,
+  },
 };
