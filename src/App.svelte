@@ -7,7 +7,9 @@
   import Repo from './components/Repo.svelte';
   import { fakeRepos, fakeUser } from './fake_data';
 
-  const octokit = new Octokit();
+  const octokit = new Octokit({
+    previews: ["mercy-preview"],
+  });
   let user: User;
   let repos = [];
   let langColors = {};
