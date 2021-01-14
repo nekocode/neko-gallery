@@ -19,7 +19,6 @@
     }
     return '#DDD';
   }
-
 </script>
 
 <li class="repo-item">
@@ -43,6 +42,13 @@
     {/if}
   </div>
   <p>{repo.description}</p>
+  {#if repo.topics && repo.topics.length > 0}
+  <ul>
+    {#each repo.topics as topic}
+      <li>{topic}</li>
+    {/each}
+  </ul>
+  {/if}
 </li>
 
 <style lang="scss">
@@ -67,44 +73,62 @@
       cursor: pointer;
       background: #f5f5f5;
     }
-
-    a {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-    }
-    h3 {
-      font-size: 14px;
-      font-weight: 600 !important;
-      color: #3e8cb7;
-    }
-    .repo-info {
-      margin-top: 6px;
-      span {
-        margin-right: 12px;
-      }
-    }
-    .octicon {
-      display: inline-block;
-      vertical-align: text-bottom;
-      fill: currentColor;
-      margin-right: $icon-margin-right;
-    }
-    .repo-language-color {
-      position: relative;
-      top: 2px;
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border: 1px solid var(--color-repo-language-color-border);
-      border-radius: 50%;
-      margin-right: $icon-margin-right;
-    }
-    p {
-      margin-top: 4px;
-    }
   }
 
+  a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 600 !important;
+    color: #3e8cb7;
+  }
+  .repo-info {
+    margin-top: 6px;
+    span {
+      margin-right: 12px;
+    }
+  }
+  .octicon {
+    display: inline-block;
+    vertical-align: text-bottom;
+    fill: currentColor;
+    margin-right: $icon-margin-right;
+  }
+  .repo-language-color {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--color-repo-language-color-border);
+    border-radius: 50%;
+    margin-right: $icon-margin-right;
+  }
+  p {
+    margin-top: 4px;
+  }
+
+  ul {
+    list-style: none;
+    margin-top: 6px;
+
+    li {
+      display: inline-block;
+      position: relative;
+      margin-right: 4px;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #0366d6;
+
+      line-height: 20px;
+      padding: 0 8px;
+      background-color: #f1f8ff;
+      border-radius: 2em;
+    }
+  }
 </style>
