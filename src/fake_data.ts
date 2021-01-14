@@ -1,6 +1,43 @@
-import type { Repo } from "./utils/types";
+import type { User, Repo } from "./utils/types";
 
-const jsonStr = `
+const userJsonStr = `
+{
+	"login": "nekocode",
+	"id": 4783781,
+	"node_id": "MDQ6VXNlcjQ3ODM3ODE=",
+	"avatar_url": "https://avatars0.githubusercontent.com/u/4783781?v=4",
+	"gravatar_id": "",
+	"url": "https://api.github.com/users/nekocode",
+	"html_url": "https://github.com/nekocode",
+	"followers_url": "https://api.github.com/users/nekocode/followers",
+	"following_url": "https://api.github.com/users/nekocode/following{/other_user}",
+	"gists_url": "https://api.github.com/users/nekocode/gists{/gist_id}",
+	"starred_url": "https://api.github.com/users/nekocode/starred{/owner}{/repo}",
+	"subscriptions_url": "https://api.github.com/users/nekocode/subscriptions",
+	"organizations_url": "https://api.github.com/users/nekocode/orgs",
+	"repos_url": "https://api.github.com/users/nekocode/repos",
+	"events_url": "https://api.github.com/users/nekocode/events{/privacy}",
+	"received_events_url": "https://api.github.com/users/nekocode/received_events",
+	"type": "User",
+	"site_admin": false,
+	"name": "nekocode",
+	"company": null,
+	"blog": "https://nekocode.cn",
+	"location": "Guangzhou, China",
+	"email": null,
+	"hireable": null,
+	"bio": "I'm a full-stack engineer and specialize in frontend (android/flutter/web) development.",
+	"twitter_username": null,
+	"public_repos": 71,
+	"public_gists": 11,
+	"followers": 1232,
+	"following": 175,
+	"created_at": "2013-06-23T07:59:52Z",
+	"updated_at": "2021-01-14T06:14:46Z"
+}
+`;
+
+const reposJsonStr = `
 [{
 	"id": 47400762,
 	"node_id": "MDEwOlJlcG9zaXRvcnk0NzQwMDc2Mg==",
@@ -6811,4 +6848,5 @@ const jsonStr = `
 }]
 `;
 
-export const fakeRepos = JSON.parse(jsonStr) as Array<Repo>;
+export const fakeUser = JSON.parse(userJsonStr) as User;
+export const fakeRepos = JSON.parse(reposJsonStr) as Array<Repo>;
