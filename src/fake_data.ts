@@ -6920,4 +6920,4 @@ const reposJsonStr = `
 `;
 
 export const fakeUser = JSON.parse(userJsonStr) as User;
-export const fakeRepos = JSON.parse(reposJsonStr) as Array<Repo>;
+export const fakeRepos = JSON.parse(reposJsonStr) as Repo[];

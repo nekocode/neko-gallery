@@ -1,11 +1,7 @@
 <script lang="ts">
-  import type { Repo } from "../utils/types";
+  import type { Repo, LangColor } from "../utils/types";
   export let repo: Repo;
-  export let langColors: {
-    [key: string]: {
-      'color'?: string;
-    }
-  } = {};
+  export let langColors: LangColor = {};
 
   // https://stackoverflow.com/a/2901298/5729581
   function numberWithCommas(x: number): string {

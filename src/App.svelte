@@ -2,17 +2,17 @@
   import { onMount } from 'svelte';
   import { Octokit } from '@octokit/rest';
   import axios from 'axios';
-  import type { User } from "./utils/types";
+  import type { User, Repo, LangColor } from "./utils/types";
   import Header from './components/Header.svelte';
-  import Repo from './components/Repo.svelte';
+  import RepoItem from './components/RepoItem.svelte';
   import { fakeRepos, fakeUser } from './fake_data';
 
   const octokit = new Octokit({
     previews: ["mercy-preview"],
   });
   let user: User;
-  let repos = [];
-  let langColors = {};
+  let repos: Repo[] = [];
+  let langColors: LangColor;
 
   onMount(() => {
     axios.get('./lang_colors.json')
@@ -31,7 +31,7 @@
   <Header user={user} />
   <ul class="repo-list">
   {#each repos as repo}
-    <Repo repo={repo} langColors={langColors} />
+    <RepoItem repo={repo} langColors={langColors} />
   {/each}
   </ul>
 </main>
