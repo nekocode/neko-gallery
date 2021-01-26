@@ -28,11 +28,13 @@
 </script>
 
 <main>
-  <Header user={user} />
+  {#if user}
+  <Header user={user} repos={repos} />
+  {/if}
   <ul class="repo-list">
-  {#each repos as repo}
+    {#each repos as repo}
     <RepoItem repo={repo} langColors={langColors} />
-  {/each}
+    {/each}
   </ul>
 </main>
 

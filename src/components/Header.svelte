@@ -1,9 +1,34 @@
 <script lang="ts">
-  import type { User } from "../utils/types";
+  import { onMount } from 'svelte';
+  import type { User, Repo } from "../utils/types";
   export let user: User;
+  export let repos: Repo[] = [];
+  let topics: [string, number][] = [];
+
+  onMount(() => {
+    const map = new Map<string, number>();
+    for (const repo of repos) {
+      if (!repo.topics) {
+        continue;
+      }
+      for (const topic of repo.topics) {
+        const count = map.get(topic);
+        map.set(topic, count ? count + 1 : 1);
+      }
+    }
+    for (const topic of map.entries()) {
+      topics.push(topic);
+    }
+    topics.sort((a, b) => {
+      if (a[1] !== b[1]) {
+        return b[1] - a[1];
+      }
+      return a[0].localeCompare(b[0]);
+    })
+    topics = topics;
+  });
 </script>
 
-{#if user}
 <div class="pagehead">
   <h1 id="title">{user.name} Open Source</h1>
   <a id="github" href={user.html_url} target="_blank">
@@ -17,8 +42,16 @@
     <br/>
     Here are some projects I have contributed to the community.
   </p>
+  <ul>
+    {#each topics as topic}
+    <li>
+      <!-- svelte-ignore a11y-missing-content -->
+      <a href={`#${window.escape(topic[0])}`}></a>
+      {topic[0]} <strong>{topic[1]}</strong>
+    </li>
+    {/each}
+  </ul>
 </div>
-{/if}
 
 <style lang="scss">
   @import '../styles/vars.scss';
@@ -68,6 +101,43 @@
       width: 76%;
       margin: auto;
       text-align: center;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      margin-top: 6px;
+
+      li {
+        display: inline-block;
+        position: relative;
+        margin-right: 6px;
+        margin-top: 6px;
+        font-size: 12px;
+        color: #0366d6;
+
+        line-height: 20px;
+        padding: 0 8px;
+        background-color: #f1f8ff;
+        border-radius: 2em;
+
+        &:hover {
+          background: #bad8f7;
+        }
+        strong {
+          font-weight: bold;
+        }
+        a {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
   }
 </style>
