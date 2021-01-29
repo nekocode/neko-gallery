@@ -30,12 +30,15 @@ onMount(async () => {
   });
   const res3 = await octokit.repos.listForUser({
     username,
-    per_page: 200,
+    type: "owner",
+    per_page: 100,
   });
 
   langColors = res1.data;
   user = res2.data;
-  repos = res3.data;
+  repos = res3.data
+    .filter((a) => !a.fork)
+    .sort((a, b) => b.stargazers_count - a.stargazers_count);
   loading = false;
 });
 </script>
