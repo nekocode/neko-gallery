@@ -125,9 +125,9 @@ h3 {
   position: relative;
   top: 2px;
   display: inline-block;
-  width: 12px;
-  height: 12px;
-  border: 1px solid var(--color-repo-language-color-border);
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(27, 31, 35, 0.1);
   border-radius: 50%;
   margin-right: $icon-margin-right;
 }

@@ -55,6 +55,7 @@ onMount(() => {
 
 main {
   margin: 0 auto;
+  padding-bottom: 50px;
   width: $container-width-3col;
 }
 @media only screen and (max-width: $container-width-3col) {

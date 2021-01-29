@@ -81,7 +81,7 @@ onMount(() => {
 
   h1 {
     font-size: 24px;
-    font-weight: 300;
+    font-weight: bold;
     padding-top: 16px;
     padding-bottom: 16px;
     margin: auto;
@@ -113,7 +113,7 @@ onMount(() => {
 
   p {
     font-size: 18px;
-    width: 76%;
+    width: 80%;
     margin: auto;
     text-align: center;
   }
