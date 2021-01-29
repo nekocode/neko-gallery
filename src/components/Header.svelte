@@ -1,37 +1,52 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import type { User, Repo } from "../utils/types";
-  export let user: User;
-  export let repos: Repo[] = [];
-  let topics: [string, number][] = [];
+import { onMount } from "svelte";
+import type { User, Repo } from "../utils/types";
+export let user: User;
+export let repos: Repo[] = [];
+export let selectedTopic: string;
+export let onTopicSelect: (topic: string | null) => void;
+let topics: [string, number][] = [];
 
-  onMount(() => {
-    const map = new Map<string, number>();
-    for (const repo of repos) {
-      if (!repo.topics) {
-        continue;
-      }
-      for (const topic of repo.topics) {
-        const count = map.get(topic);
-        map.set(topic, count ? count + 1 : 1);
-      }
+const onTopicClick = (topic: string) => {
+  if (selectedTopic === topic) {
+    // https://stackoverflow.com/a/28155967
+    history.replaceState({}, document.title, ".");
+    onTopicSelect("");
+    return false;
+  }
+
+  window.location.hash = `#${window.escape(topic)}`;
+  onTopicSelect(topic);
+  return false;
+};
+
+onMount(() => {
+  const map = new Map<string, number>();
+  for (const repo of repos) {
+    if (!repo.topics) {
+      continue;
     }
-    for (const topic of map.entries()) {
-      topics.push(topic);
+    for (const topic of repo.topics) {
+      const count = map.get(topic);
+      map.set(topic, count ? count + 1 : 1);
     }
-    topics.sort((a, b) => {
-      if (a[1] !== b[1]) {
-        return b[1] - a[1];
-      }
-      return a[0].localeCompare(b[0]);
-    })
-    topics = topics;
+  }
+  for (const topic of map.entries()) {
+    topics.push(topic);
+  }
+  topics.sort((a, b) => {
+    if (a[1] !== b[1]) {
+      return b[1] - a[1];
+    }
+    return a[0].localeCompare(b[0]);
   });
+  topics = topics;
+});
 </script>
 
 <div class="pagehead">
   <h1 id="title">{user.name} Open Source</h1>
-  <a id="github" href={user.html_url} target="_blank">
+  <a id="github" href="{user.html_url}" target="_blank">
     {user.html_url.substr(8)}
   </a>
 </div>
@@ -39,105 +54,105 @@
 <div class="profile">
   <p id="description">
     {user.bio}
-    <br/>
+    <br />
     Here are some projects I have contributed to the community.
   </p>
   <ul>
     {#each topics as topic}
-    <li>
-      <!-- svelte-ignore a11y-missing-content -->
-      <a href={`#${window.escape(topic[0])}`}></a>
-      {topic[0]} <strong>{topic[1]}</strong>
-    </li>
+      <li
+        class="{selectedTopic === topic[0] ? ['selected'] : null}"
+        on:click="{() => onTopicClick(topic[0])}">
+        {topic[0]} <strong>{topic[1]}</strong>
+      </li>
     {/each}
   </ul>
 </div>
 
 <style lang="scss">
-  @import '../styles/vars.scss';
+@import "../styles/vars.scss";
 
+.pagehead {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e1e4e8;
+  display: flex;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 24px;
+    font-weight: 300;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin: auto;
+    width: 100%;
+    text-align: left;
+  }
+
+  a {
+    margin: auto;
+    width: 100%;
+    text-align: right;
+  }
+}
+@media only screen and (max-width: $container-width-2col) {
   .pagehead {
-    position: relative;
-    padding-top: 40px;
-    padding-bottom: 13px;
-    border-bottom: 1px solid #e1e4e8;
-    display: flex;
-    justify-content: space-between;
+    text-align: center;
+    display: block;
 
     h1 {
-      font-size: 24px;
-      font-weight: 300;
-      padding-top: 16px;
-      padding-bottom: 16px;
-      margin: auto;
-      width: 100%;
-      text-align: left;
-    }
-
-    a {
-      margin: auto;
-      width: 100%;
-      text-align: right;
-    }
-  }
-  @media only screen and (max-width: $container-width-2col) {
-    .pagehead {
-      text-align: center;
-      display: block;
-
-      h1 {
-        text-align: center;
-      }
-    }
-  }
-
-  .profile {
-    border-bottom: 1px solid #e1e4e8;
-    padding-top: 46px;
-    padding-bottom: 36px;
-
-    p {
-      font-size: 18px;
-      width: 76%;
-      margin: auto;
       text-align: center;
     }
+  }
+}
 
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      list-style: none;
+.profile {
+  border-bottom: 1px solid #e1e4e8;
+  padding-top: 46px;
+  padding-bottom: 36px;
+
+  p {
+    font-size: 18px;
+    width: 76%;
+    margin: auto;
+    text-align: center;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    margin-top: 6px;
+
+    li {
+      display: inline-block;
+      position: relative;
+      margin-right: 6px;
       margin-top: 6px;
+      font-size: 12px;
+      color: #0366d6;
+      user-select: none;
+      cursor: pointer;
 
-      li {
-        display: inline-block;
-        position: relative;
-        margin-right: 6px;
-        margin-top: 6px;
-        font-size: 12px;
-        color: #0366d6;
+      line-height: 20px;
+      padding: 0 8px;
+      background-color: #f1f8ff;
+      border-radius: 2em;
+      border: 1px solid transparent;
 
-        line-height: 20px;
-        padding: 0 8px;
-        background-color: #f1f8ff;
-        border-radius: 2em;
-
-        &:hover {
-          background: #bad8f7;
-        }
-        strong {
-          font-weight: bold;
-        }
-        a {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-        }
+      &:hover {
+        background: #bad8f7;
+      }
+      strong {
+        font-weight: bold;
       }
     }
+    :global(li.selected) {
+      border-color: #0366d6;
+      background: transparent;
+    }
   }
+}
 </style>

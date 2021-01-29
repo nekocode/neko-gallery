@@ -6,6 +6,8 @@ devDependencies:
   '@rollup/plugin-node-resolve': 11.0.1_rollup@2.36.1
   '@rollup/plugin-typescript': 8.1.0_41183f0125727fce55578bdc26a9b002
   '@tsconfig/svelte': 1.0.10
+  prettier: 2.2.1
+  prettier-plugin-svelte: 2.1.1_prettier@2.2.1+svelte@3.31.2
   rollup: 2.36.1
   rollup-plugin-copy: 3.3.0
   rollup-plugin-livereload: 2.0.0
@@ -1694,6 +1696,23 @@ packages:
     optional: true
     resolution:
       integrity: sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
+  /prettier-plugin-svelte/2.1.1_prettier@2.2.1+svelte@3.31.2:
+    dependencies:
+      prettier: 2.2.1
+      svelte: 3.31.2
+    dev: true
+    peerDependencies:
+      prettier: ^1.16.4 || ^2.0.0
+      svelte: ^3.2.0
+    resolution:
+      integrity: sha512-U0gRsdJtveyusHd86OUPD+lEVd13bHPPF/CZD/csKjz0Y+Cv4WbUy9x8tA5vaHFtf0tsu8Yb1MrfuhN3GH2gig==
+  /prettier/2.2.1:
+    dev: true
+    engines:
+      node: '>=10.13.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
   /process-nextick-args/2.0.1:
     dev: true
     optional: true
@@ -2522,6 +2541,8 @@ specifiers:
   '@rollup/plugin-typescript': ^8.1.0
   '@tsconfig/svelte': ^1.0.10
   axios: ^0.21.1
+  prettier: ^2.2.1
+  prettier-plugin-svelte: ^2.1.1
   rollup: ^2.36.1
   rollup-plugin-copy: ^3.3.0
   rollup-plugin-livereload: ^2.0.0
