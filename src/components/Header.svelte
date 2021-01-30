@@ -71,21 +71,16 @@ onMount(() => {
 <style lang="scss">
 @import "../styles/vars.scss";
 
-$divider-color: $green;
+$divider-color: $foreground;
 
 .pagehead {
   position: relative;
-  padding-top: 40px;
-  padding-bottom: 13px;
-  border-bottom: 2px solid $divider-color;
   display: flex;
   justify-content: space-between;
 
   h1 {
     font-size: 24px;
     font-weight: bold;
-    padding-top: 16px;
-    padding-bottom: 16px;
     margin: auto;
     width: 100%;
     text-align: left;
@@ -109,9 +104,10 @@ $divider-color: $green;
 }
 
 .profile {
+  border-top: 2px solid $divider-color;
   border-bottom: 2px solid $divider-color;
-  padding-top: 46px;
-  padding-bottom: 36px;
+  padding: 30px 0px;
+  margin: 30px 0px;
 
   p {
     font-size: 18px;
@@ -126,7 +122,8 @@ $divider-color: $green;
     align-items: center;
     justify-content: center;
     list-style: none;
-    margin-top: 6px;
+    width: 80%;
+    margin: 10px auto 0px auto;
 
     li {
       display: inline-block;
@@ -140,19 +137,19 @@ $divider-color: $green;
 
       line-height: 20px;
       padding: 0 8px;
-      border: 2px solid $green;
+      border: 2px solid $foreground;
 
       &:hover {
-        border-color: $white;
-        color: $white;
+        border-color: $active;
+        color: $active;
       }
       strong {
         font-weight: bold;
       }
     }
     :global(li.selected) {
-      border-color: $white;
-      color: $white;
+      border-color: $active;
+      color: $active;
     }
   }
 }

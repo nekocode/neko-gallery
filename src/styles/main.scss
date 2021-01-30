@@ -14,11 +14,11 @@ body {
   font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word;
-  background-color: #000A00;
-  color: $green;
+  background-color: $background;
+  color: $foreground;
   margin: 0px;
 }
 
 a {
-  color: $green;
+  color: $foreground;
 }

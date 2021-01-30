@@ -13,14 +13,16 @@ export let hidden: boolean = false;
 </div>
 
 <style lang="scss">
+@import "../styles/vars.scss";
+
 #splash {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, #222428, #444856);
-  color: #fff;
+  background: $background;
+  color: $foreground;
   z-index: 4000;
   display: flex;
   align-items: center;
@@ -41,7 +43,7 @@ export let hidden: boolean = false;
 }
 .text-hint {
   margin-top: 10px;
-  color: #6c757d;
+  font-weight: bold;
 }
 
 .lds-ripple {
@@ -52,7 +54,7 @@ export let hidden: boolean = false;
 }
 .lds-ripple div {
   position: absolute;
-  border: 4px solid #fff;
+  border: 4px solid $foreground;
   opacity: 1;
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;

@@ -87,11 +87,11 @@ $icon-margin-right: 1px;
   font-size: 12px;
   cursor: pointer;
 
-  border: $repo-border-width solid $green;
+  border: $repo-border-width solid $foreground;
 
   &:hover {
-    border-color: $white;
-    color: $white;
+    border-color: $active;
+    color: $active;
   }
 }
 
@@ -125,7 +125,7 @@ h2 {
   display: inline-block;
   width: 10px;
   height: 10px;
-  border: 1px solid $white;
+  border: 1px solid $active;
   margin-right: $icon-margin-right;
 }
 p {
@@ -146,7 +146,7 @@ ul {
 
     line-height: 20px;
     padding: 0 8px;
-    border: 2px solid $green;
+    border: 2px solid $foreground;
     border-color: inherit !important;
   }
 }

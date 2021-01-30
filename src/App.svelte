@@ -66,7 +66,7 @@ onMount(async () => {
 
 main {
   margin: 0 auto;
-  padding-bottom: 50px;
+  padding: 30px 0px;
   width: $container-width-3col;
 }
 @media only screen and (max-width: $container-width-3col) {
@@ -88,7 +88,5 @@ main {
   flex-wrap: wrap;
   margin-left: -$repo-margin;
   margin-right: -$repo-margin;
-  margin-top: 46px;
-  margin-bottom: 0;
 }
 </style>
