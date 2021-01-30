@@ -71,11 +71,13 @@ onMount(() => {
 <style lang="scss">
 @import "../styles/vars.scss";
 
+$divider-color: $green;
+
 .pagehead {
   position: relative;
   padding-top: 40px;
   padding-bottom: 13px;
-  border-bottom: 1px solid #e1e4e8;
+  border-bottom: 2px solid $divider-color;
   display: flex;
   justify-content: space-between;
 
@@ -107,7 +109,7 @@ onMount(() => {
 }
 
 .profile {
-  border-bottom: 1px solid #e1e4e8;
+  border-bottom: 2px solid $divider-color;
   padding-top: 46px;
   padding-bottom: 36px;
 
@@ -132,26 +134,25 @@ onMount(() => {
       margin-right: 6px;
       margin-top: 6px;
       font-size: 12px;
-      color: #0366d6;
+      font-weight: bold;
       user-select: none;
       cursor: pointer;
 
       line-height: 20px;
       padding: 0 8px;
-      background-color: #f1f8ff;
-      border-radius: 2em;
-      border: 1px solid transparent;
+      border: 2px solid $green;
 
       &:hover {
-        background: #bad8f7;
+        border-color: $white;
+        color: $white;
       }
       strong {
         font-weight: bold;
       }
     }
     :global(li.selected) {
-      border-color: #0366d6;
-      background: transparent;
+      border-color: $white;
+      color: $white;
     }
   }
 }

@@ -1,6 +1,6 @@
 $repo-width: 240px;
 $repo-padding: 16px;
-$repo-border-width: 1px;
+$repo-border-width: 2px;
 $repo-final-width: $repo-width + $repo-padding * 2 + $repo-border-width * 2;
 
 $repo-margin: 20px;
@@ -8,3 +8,7 @@ $repo-margin: 20px;
 $container-width-3col: #{$repo-final-width * 3 + $repo-margin * 4};
 $container-width-2col: #{$repo-final-width * 2 + $repo-margin * 2};
 $container-width-1col: $repo-final-width;
+
+$green: #00b200;
+$blue: #0366d6;
+$white: #fff;

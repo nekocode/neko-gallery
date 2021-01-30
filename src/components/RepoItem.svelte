@@ -20,7 +20,7 @@ function getLangColor(lang: string): string {
 <li class="repo-item">
   <!-- svelte-ignore a11y-missing-content -->
   <a href="{repo.html_url}" target="_blank"></a>
-  <h3>{repo.name}</h3>
+  <h2>{repo.name}</h2>
   <div class="repo-info">
     <span id="starts-info">
       <svg
@@ -75,7 +75,7 @@ function getLangColor(lang: string): string {
 
 <style lang="scss">
 @import "../styles/vars.scss";
-$icon-margin-right: 2px;
+$icon-margin-right: 1px;
 
 .repo-item {
   position: relative;
@@ -84,16 +84,14 @@ $icon-margin-right: 2px;
   margin-left: $repo-margin;
   margin-right: $repo-margin;
   margin-bottom: 20px;
-  border-radius: 3px !important;
   font-size: 12px;
-  color: #586069;
+  cursor: pointer;
 
-  border: $repo-border-width solid #e1e4e8;
-  border-radius: 6px;
+  border: $repo-border-width solid $green;
 
   &:hover {
-    cursor: pointer;
-    background: #f5f5f5;
+    border-color: $white;
+    color: $white;
   }
 }
 
@@ -104,14 +102,14 @@ a {
   width: 100%;
   height: 100%;
 }
-h3 {
-  font-size: 14px;
-  font-weight: 600 !important;
-  color: #3e8cb7;
+h2 {
+  font-size: 16px;
+  font-weight: bold;
 }
 .repo-info {
   margin-top: 6px;
   span {
+    font-weight: bold;
     margin-right: 12px;
   }
 }
@@ -127,8 +125,7 @@ h3 {
   display: inline-block;
   width: 10px;
   height: 10px;
-  border: 1px solid rgba(27, 31, 35, 0.1);
-  border-radius: 50%;
+  border: 1px solid $white;
   margin-right: $icon-margin-right;
 }
 p {
@@ -145,12 +142,12 @@ ul {
     margin-right: 4px;
     margin-top: 4px;
     font-size: 12px;
-    color: #0366d6;
+    font-weight: bold;
 
     line-height: 20px;
     padding: 0 8px;
-    background-color: #f1f8ff;
-    border-radius: 2em;
+    border: 2px solid $green;
+    border-color: inherit !important;
   }
 }
 </style>
