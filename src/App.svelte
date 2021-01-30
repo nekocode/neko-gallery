@@ -6,7 +6,6 @@ import type { User, Repo, LangColor } from "./utils/types";
 import Loading from "./components/Loading.svelte";
 import Header from "./components/Header.svelte";
 import RepoItem from "./components/RepoItem.svelte";
-import { fakeRepos, fakeUser } from "./fake_data";
 
 const username = "nekocode";
 const octokit = new Octokit({
