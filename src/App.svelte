@@ -15,11 +15,11 @@ const octokit = new Octokit({
 let user: User;
 let repos: Repo[] = [];
 let langColors: LangColor;
-let selectedTopic: string = window.unescape(window.location.hash.substr(1));
+let selectedCategory: string = window.unescape(window.location.hash.substr(1));
 let loading = true;
 
-const onTopicSelect = (topic: string) => {
-  selectedTopic = topic;
+const onCategorySelect = (category: string) => {
+  selectedCategory = category;
 };
 
 onMount(async () => {
@@ -48,12 +48,12 @@ onMount(async () => {
     <Header
       user="{user}"
       repos="{repos}"
-      selectedTopic="{selectedTopic}"
-      onTopicSelect="{onTopicSelect}" />
+      selectedCategory="{selectedCategory}"
+      onCategorySelect="{onCategorySelect}" />
   {/if}
   <ul class="repo-list">
     {#each repos as repo}
-      {#if !selectedTopic || repo.topics.includes(selectedTopic)}
+      {#if !selectedCategory || repo.topics.includes(selectedCategory) || repo.language === selectedCategory}
         <RepoItem repo="{repo}" langColors="{langColors}" />
       {/if}
     {/each}

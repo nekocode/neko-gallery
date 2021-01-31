@@ -3,35 +3,41 @@ import { onMount } from "svelte";
 import type { User, Repo } from "../utils/types";
 export let user: User;
 export let repos: Repo[] = [];
-export let selectedTopic: string;
-export let onTopicSelect: (topic: string | null) => void;
+export let selectedCategory: string;
+export let onCategorySelect: (category: string | null) => void;
 let topics: [string, number][] = [];
+let langs: [string, number][] = [];
 
-const onTopicClick = (topic: string) => {
-  if (selectedTopic === topic) {
+const onCategoryClick = (category: string) => {
+  if (selectedCategory === category) {
     // https://stackoverflow.com/a/28155967
     history.replaceState({}, document.title, ".");
-    onTopicSelect("");
+    onCategorySelect(null);
     return false;
   }
 
-  window.location.hash = `#${window.escape(topic)}`;
-  onTopicSelect(topic);
+  window.location.hash = `#${window.escape(category)}`;
+  onCategorySelect(category);
   return false;
 };
 
 onMount(() => {
-  const map = new Map<string, number>();
+  const topicMap = new Map<string, number>();
+  const langMap = new Map<string, number>();
   for (const repo of repos) {
-    if (!repo.topics) {
-      continue;
+    if (repo.topics) {
+      for (const topic of repo.topics) {
+        const count = topicMap.get(topic);
+        topicMap.set(topic, count ? count + 1 : 1);
+      }
     }
-    for (const topic of repo.topics) {
-      const count = map.get(topic);
-      map.set(topic, count ? count + 1 : 1);
+    if (repo.language) {
+      const count = langMap.get(repo.language);
+      langMap.set(repo.language, count ? count + 1 : 1);
     }
   }
-  for (const topic of map.entries()) {
+
+  for (const topic of topicMap.entries()) {
     topics.push(topic);
   }
   topics.sort((a, b) => {
@@ -40,7 +46,19 @@ onMount(() => {
     }
     return a[0].localeCompare(b[0]);
   });
+
+  for (const lang of langMap.entries()) {
+    langs.push(lang);
+  }
+  langs.sort((a, b) => {
+    if (a[1] !== b[1]) {
+      return b[1] - a[1];
+    }
+    return a[0].localeCompare(b[0]);
+  });
+
   topics = topics;
+  langs = langs;
 });
 </script>
 
@@ -60,9 +78,18 @@ onMount(() => {
   <ul>
     {#each topics as topic}
       <li
-        class="{selectedTopic === topic[0] ? ['selected'] : null}"
-        on:click="{() => onTopicClick(topic[0])}">
+        class="{selectedCategory === topic[0] ? ['selected'] : null}"
+        on:click="{() => onCategoryClick(topic[0])}">
         {topic[0]} <strong>{topic[1]}</strong>
+      </li>
+    {/each}
+  </ul>
+  <ul>
+    {#each langs as lang}
+      <li
+        class="{selectedCategory === lang[0] ? ['selected'] : null}"
+        on:click="{() => onCategoryClick(lang[0])}">
+        {lang[0]} <strong>{lang[1]}</strong>
       </li>
     {/each}
   </ul>
@@ -140,8 +167,8 @@ $divider-color: $foreground;
       border: 2px solid $foreground;
 
       &:hover {
-        border-color: $active;
-        color: $active;
+        border-color: $active2;
+        color: $active2;
       }
       strong {
         font-weight: bold;
