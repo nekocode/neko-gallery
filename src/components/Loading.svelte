@@ -23,7 +23,7 @@ export let hidden: boolean = false;
   height: 100%;
   background: $background;
   color: $foreground;
-  z-index: 4000;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
