@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMount } from "svelte";
-import { Octokit } from "@octokit/rest";
+import { graphql } from "@octokit/graphql";
 import axios from "axios";
 import type { User, Repo, LangColor } from "./utils/types";
 import Loading from "./components/Loading.svelte";
@@ -8,12 +8,9 @@ import Header from "./components/Header.svelte";
 import RepoItem from "./components/RepoItem.svelte";
 
 const username = "nekocode";
-const octokit = new Octokit({
-  previews: ["mercy-preview"],
-});
+const token = "8e293ddcbbd4ebb74587fa3ba3a3d69035afe93f";
 
 let user: User;
-let repos: Repo[] = [];
 let langColors: LangColor;
 let selectedCategory: string = window.unescape(window.location.hash.substr(1));
 let loading = true;
@@ -24,20 +21,65 @@ const onCategorySelect = (category: string) => {
 
 onMount(async () => {
   const res1 = await axios.get("./lang_colors.json");
-  const res2 = await octokit.users.getByUsername({
-    username,
-  });
-  const res3 = await octokit.repos.listForUser({
-    username,
-    type: "owner",
-    per_page: 100,
+  const res2 = await graphql(
+    `
+      query($username: String!) {
+        user(login: $username) {
+          name
+          bio
+          url
+          repositories(
+            first: 100
+            isFork: false
+            isLocked: false
+            privacy: PUBLIC
+            ownerAffiliations: [OWNER]
+            orderBy: { field: STARGAZERS, direction: DESC }
+          ) {
+            nodes {
+              name
+              url
+              stargazerCount
+              isFork
+              forkCount
+              languages(first: 1) {
+                nodes {
+                  name
+                }
+              }
+              description
+              openGraphImageUrl
+              repositoryTopics(first: 10) {
+                nodes {
+                  topic {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    {
+      username,
+      headers: {
+        authorization: `token ${token}`,
+      },
+    }
+  );
+
+  const _user = res2["user"] as User;
+  _user.repositories.nodes.forEach((repo) => {
+    if (repo.languages.nodes.length > 0) {
+      repo._language = repo.languages.nodes[0].name;
+    }
+    repo._topics = repo.repositoryTopics.nodes.map((topic) => topic.topic.name);
+    return repo;
   });
 
   langColors = res1.data;
-  user = res2.data;
-  repos = res3.data
-    .filter((a) => !a.fork)
-    .sort((a, b) => b.stargazers_count - a.stargazers_count);
+  user = _user;
   loading = false;
 });
 </script>
@@ -47,17 +89,16 @@ onMount(async () => {
   {#if user}
     <Header
       user="{user}"
-      repos="{repos}"
       selectedCategory="{selectedCategory}"
       onCategorySelect="{onCategorySelect}" />
+    <ul class="repo-list">
+      {#each user.repositories.nodes as repo}
+        {#if !selectedCategory || repo._topics.includes(selectedCategory) || repo._language === selectedCategory}
+          <RepoItem repo="{repo}" langColors="{langColors}" />
+        {/if}
+      {/each}
+    </ul>
   {/if}
-  <ul class="repo-list">
-    {#each repos as repo}
-      {#if !selectedCategory || repo.topics.includes(selectedCategory) || repo.language === selectedCategory}
-        <RepoItem repo="{repo}" langColors="{langColors}" />
-      {/if}
-    {/each}
-  </ul>
 </main>
 
 <style lang="scss">

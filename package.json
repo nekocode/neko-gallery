@@ -8,7 +8,7 @@
     "validate": "svelte-check"
   },
   "dependencies": {
-    "@octokit/rest": "^18.0.12",
+    "@octokit/graphql": "^4.5.9",
     "axios": "^0.21.1"
   },
   "devDependencies": {

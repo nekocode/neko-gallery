@@ -2,7 +2,6 @@
 import { onMount } from "svelte";
 import type { User, Repo } from "../utils/types";
 export let user: User;
-export let repos: Repo[] = [];
 export let selectedCategory: string;
 export let onCategorySelect: (category: string | null) => void;
 let topics: [string, number][] = [];
@@ -24,16 +23,16 @@ const onCategoryClick = (category: string) => {
 onMount(() => {
   const topicMap = new Map<string, number>();
   const langMap = new Map<string, number>();
-  for (const repo of repos) {
-    if (repo.topics) {
-      for (const topic of repo.topics) {
+  for (const repo of user.repositories.nodes) {
+    if (repo._topics) {
+      for (const topic of repo._topics) {
         const count = topicMap.get(topic);
         topicMap.set(topic, count ? count + 1 : 1);
       }
     }
-    if (repo.language) {
-      const count = langMap.get(repo.language);
-      langMap.set(repo.language, count ? count + 1 : 1);
+    if (repo._language) {
+      const count = langMap.get(repo._language);
+      langMap.set(repo._language, count ? count + 1 : 1);
     }
   }
 
@@ -64,8 +63,8 @@ onMount(() => {
 
 <div class="pagehead">
   <h1 id="title">{user.name} Open Source</h1>
-  <a id="github" href="{user.html_url}" target="_blank">
-    {user.html_url.substr(8)}
+  <a id="github" href="{user.url}" target="_blank">
+    {user.url.substr(8)}
   </a>
 </div>
 
