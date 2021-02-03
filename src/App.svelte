@@ -75,6 +75,9 @@ onMount(async () => {
       repo._language = repo.languages.nodes[0].name;
     }
     repo._topics = repo.repositoryTopics.nodes.map((topic) => topic.topic.name);
+    if (repo.openGraphImageUrl.includes("avatar")) {
+      repo.openGraphImageUrl = null;
+    }
     return repo;
   });
 
