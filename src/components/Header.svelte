@@ -72,7 +72,7 @@ onMount(() => {
   <p id="description">
     {user.bio}
     <br />
-    Here are some projects I have contributed to the community.
+    Here are some projects I have contributed to in the community.
   </p>
   <ul>
     {#each topics as topic}
