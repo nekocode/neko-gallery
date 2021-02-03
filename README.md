@@ -1,7 +1,8 @@
-Change the username variable in the `App.svelte` file to your github id:
+Change variables in the `App.svelte` file:
 
 ```
-const username = "nekocode";
+const username = "Your github id";
+const token = "Your github personal access token";
 ```
 
 Enjoy it.
