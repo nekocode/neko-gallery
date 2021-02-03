@@ -21,7 +21,9 @@ function getLangColor(lang: string): string {
   <!-- svelte-ignore a11y-missing-content -->
   <a href="{repo.url}" target="_blank"></a>
   {#if repo.openGraphImageUrl}
-    <img class="repo-preview" src="{repo.openGraphImageUrl}" alt="preview" />
+    <div class="repo-preview">
+      <img src="{repo.openGraphImageUrl}" alt="preview" />
+    </div>
   {/if}
   <div class="repo-content">
     <h2>{repo.name}</h2>
@@ -90,25 +92,41 @@ $icon-margin-right: 1px;
   margin-bottom: 20px;
   font-size: 12px;
   cursor: pointer;
-
   border: $repo-border-width solid $foreground;
+  transition: $transition;
+
+  $preview-width: $repo-width;
+  $preview-height: $repo-width / 2;
+  .repo-preview {
+    width: $preview-width;
+    height: $preview-height;
+    overflow: hidden;
+
+    img {
+      width: $preview-width;
+      height: $preview-height;
+      transition: $transition;
+    }
+    & + .repo-content {
+      padding-top: 0px;
+    }
+  }
+  .repo-content {
+    padding: 16px;
+  }
 
   &:hover {
     border-color: $active;
     color: $active;
-  }
-}
-.repo-preview {
-  width: 100%;
-  height: auto;
-  & + .repo-content {
-    padding-top: 0px;
-  }
-}
-.repo-content {
-  padding: 16px;
-}
 
+    $preview-width-hover: $preview-width * 1.1;
+    $preview-height-hover: $preview-height * 1.1;
+    .repo-preview img {
+      width: $preview-width-hover;
+      height: $preview-height-hover;
+    }
+  }
+}
 a {
   position: absolute;
   left: 0;

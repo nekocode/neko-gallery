@@ -160,6 +160,7 @@ $divider-color: $foreground;
       font-weight: bold;
       user-select: none;
       cursor: pointer;
+      transition: $transition;
 
       line-height: 20px;
       padding: 0 8px;
