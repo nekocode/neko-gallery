@@ -1,3 +1,4 @@
+/// <reference path="../node_modules/svelte/types/runtime/index.d.ts" />
 import "./styles/main.scss";
 import App from "./App.svelte";
 

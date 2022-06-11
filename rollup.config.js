@@ -41,7 +41,7 @@ export default {
     format: "iife",
     sourcemap: !production,
     name: "app",
-    file: "dist/bundle.js",
+    file: "docs/bundle.js",
   },
 
   plugins: [
@@ -67,10 +67,10 @@ export default {
       inlineSources: !production,
     }),
     copy({
-      targets: [{ src: "public/*", dest: "dist" }],
+      targets: [{ src: "public/*", dest: "docs" }],
     }),
     !production && serve(),
-    !production && livereload("dist"),
+    !production && livereload("docs"),
   ],
   watch: {
     // https://github.com/rollup/rollup/issues/1666#issuecomment-536227450

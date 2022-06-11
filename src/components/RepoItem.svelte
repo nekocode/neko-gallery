@@ -96,7 +96,7 @@ $icon-margin-right: 1px;
   transition: $transition;
 
   $preview-width: $repo-width;
-  $preview-height: $repo-width / 2;
+  $preview-height: calc($repo-width / 2);
   .repo-preview {
     width: $preview-width;
     height: $preview-height;
