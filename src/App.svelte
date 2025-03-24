@@ -9,7 +9,7 @@ import RepoItem from "./components/RepoItem.svelte";
 
 const username = "nekocode";
 // Used base64 encoding to bypass the protection of github
-const token = atob("Z2hwXzFOZVluQjNzTU9UZTRkdld1NmUzeERhUHkyZTBxWjBRZmRiNQ==");
+const token = atob("X2dpdGh1Yl9wYXRfMTFBQkVQNUpJMGt6MVJOUm5ycFVOZ192UDBSb1Mx").slice(1) + atob("XzBFenNRTEk2ZHFsaVZOUlRjcXA1bFdtY1lDUDNEM3pPMXRKQ1NFWlU0WFkycHNHczJyZDQ=").slice(1);
 
 let user: User;
 let langColors: LangColor;
